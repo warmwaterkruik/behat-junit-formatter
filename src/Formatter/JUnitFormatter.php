@@ -165,7 +165,9 @@ class JUnitFormatter implements Formatter
 
         $testsuite = $this->xml->addChild('testsuite');
         $testsuite->addAttribute('name', $suite->getName());
+        // This is counted per feature and set in the afterFeature handler.
         $testsuite->addAttribute('tests', 0);
+        $testsuite->addAttribute('timestamp', date(\DateTime::ISO8601));
     }
 
     /**
