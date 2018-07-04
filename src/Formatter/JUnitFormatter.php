@@ -71,6 +71,11 @@ class JUnitFormatter implements Formatter
     private $currentOutlineTitle;
 
     /**
+     * @var string
+     */
+    private $dateFormat = 'Y-m-d\TH:i:s';
+
+    /**
      * __construct
      *
      * @param mixed $filename
@@ -167,7 +172,7 @@ class JUnitFormatter implements Formatter
         $testsuite->addAttribute('name', $suite->getName());
         // This is counted per feature and set in the afterFeature handler.
         $testsuite->addAttribute('tests', 0);
-        $testsuite->addAttribute('timestamp', date(\DateTime::ISO8601));
+        $testsuite->addAttribute('timestamp', date($this->dateFormat));
     }
 
     /**
@@ -181,6 +186,7 @@ class JUnitFormatter implements Formatter
 
         $this->currentTestsuite = $testsuite = $this->xml->addChild('testsuite');
         $testsuite->addAttribute('name', $feature->getTitle());
+        $testsuite->addAttribute('timestamp', date($this->dateFormat));
 
         $this->testsuiteStats =  array(
             TestResult::PASSED    => 0,
